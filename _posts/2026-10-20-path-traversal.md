@@ -5,13 +5,17 @@ categories: [Web Exploitation]
 tags: [Web]
 ---
 
-Imagine a website that loads an image with url like ```image?file=cat.png```. Now you change the value "cat.png" to something like ../../../etc/passwd and instead of the image you see a system file rendered on your screen, this is path traversal. In this post, I'll explain how it works and how to stop it.
+Imagine a website that loads an image with a URL like `image?file=cat.png`. Now you change the value “cat.png” to something like `../../../etc/passwd` and instead of the image you see a system file rendered on your screen. That is path traversal. In this post, I’ll explain how it works and how to stop it.
 
 ## What is Path Traversal?
 
-Path Traversal also known as directory traversal, attackers can use this vulnerability to access arbitrary files on your system if not handled properly.
+Path traversal, also known as directory traversal, is a vulnerability that lets attackers access arbitrary files on the server if it is not handled properly.
+
+The trick behind it is `../`, which means “go up one folder”. For example, if a site keeps its images in `/var/www/images/`, then `../../../etc/passwd` climbs up three folders to the root and then points to `/etc/passwd`, a system file the site was never meant to share.
 
 ## Lab Walkthrough: File path traversal
+
+This was done in a PortSwigger lab, which is built for practice. Never test on real websites without permission.
 
 You can access the lab [here](https://portswigger.net/web-security/learning-paths/server-side-vulnerabilities-apprentice/path-traversal-apprentice/file-path-traversal/lab-simple#)
 
@@ -23,7 +27,12 @@ So the only clickable links are the "View details" buttons. After clicking the b
 
 ![](/assets/img/path-traversal/path_traversal_2.png)
 
-As we can see, clicking the button sends a GET request for a file, let's try changing the file name.
+As we can see, clicking the button sends a GET request for a file, let's try changing the file name. 
+I replaced the file name with `../../../etc/passwd`, so the request became:
+
+```
+GET /image?filename=../../../etc/passwd
+```
 
 ![](/assets/img/path-traversal/path_traversal_3.png)
 
@@ -37,12 +46,33 @@ On page, it says that the lab is solved successfully! However we would want to s
 
 And on Burp Repeater we do see the contents of the file we requested for.
 
+Why three `../`? In this lab the images are stored in `/var/www/images/`, so three `../` take us up to the root folder `/`, and from there `etc/passwd` points to the file we want.
+
+One note: `/etc/passwd` is a Linux file. On a Windows server, a common test file is `..\..\windows\win.ini`.
+
 ## Why it happens
 
 This happens primarily because the server blindly accepts inputs from the frontend. There is no way to validate that either the file that is being requested is allowed to be sent or not. Another reason is lack of input sanitisation. Characters like "/" shouldn't be allowed in file names.
 
+Reading `/etc/passwd` is just the classic test. A real attacker would go for config files, database credentials, source code or SSH keys. And if the app also lets users write files, path traversal can lead to code execution.
+
 ## How to fix it
 
-The best fix is to use ids instead of fixed paths, like ```image?id=7``` and the server looks up the real file itself. Another good fix is to resolve the full path first and then confirm if it still starts with the allowed folder.
+The best fix is to use ids instead of fixed paths, like `image?id=7` and the server looks up the real file itself. Another good fix is to resolve the full path first and then confirm if it still starts with the allowed folder.
 
+Here is what the second fix looks like in Node.js:
+```javascript
+const path = require("path");
+const base = "/var/www/images";
+const full = path.resolve(base, req.query.filename);
 
+if (!full.startsWith(base + path.sep)) {
+  return res.status(400).send("Bad request");
+}
+```
+If the final path escapes the images folder, the request is rejected.
+
+A few more things that help:
+- Use an allowlist and only accept file names you expect, like letters, numbers and `.png`.
+- Run the app with low permissions, so even if the bug exists, it can't read sensitive files.
+- Don't rely on removing `../` from the input. It's easy to bypass.
