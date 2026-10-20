@@ -2,6 +2,10 @@
 #
 # Run jekyll serve and then launch the site
 
+if ! command -v bundle &> /dev/null; then
+  export PATH="$(gem env user_gemhome 2>/dev/null)/bin:$PATH"
+fi
+
 prod=false
 command="bundle exec jekyll s -l"
 host="127.0.0.1"

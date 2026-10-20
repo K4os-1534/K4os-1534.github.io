@@ -6,6 +6,10 @@
 #
 # Usage: See help information
 
+if ! command -v bundle &> /dev/null; then
+  export PATH="$(gem env user_gemhome 2>/dev/null)/bin:$PATH"
+fi
+
 set -eu
 
 SITE_DIR="_site"
