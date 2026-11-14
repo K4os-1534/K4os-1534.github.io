@@ -13,3 +13,274 @@
 ';
 
 /* append your custom style below */
+
+/* ==========================================================================
+   Vintage Rose palette — colorhunt.co/palette/F67280C06C846C5B7B355C7D
+   Applied Nov 2026. CSS custom-property overrides for Chirpy's theme vars,
+   mirroring the theme's three selector contexts (explicit light, explicit
+   dark, and the prefers-color-scheme fallback). Also patches four theme
+   quirks: blending topbar, categories card accent/border, archives row
+   gradient, and the share-link hover color.
+   ========================================================================== */
+
+/* ---- light ---- */
+:root[data-bs-theme='light'] {
+    --main-bg: rgb(249 244 244);
+    --mask-bg: rgb(235 216 218);
+    --main-border-color: rgb(235 216 218);
+    --card-bg: rgb(243 233 235);
+    --card-hover-bg: rgb(235 216 218);
+    --img-bg: radial-gradient(circle, rgb(253 252 252) 0%, rgb(241 228 230) 100%);
+    --topbar-bg: rgb(249 244 244 / 0.7);
+    --topbar-text-color: rgb(64 78 89);
+    --sidebar-bg: rgb(243 233 235);
+    --sidebar-border-color: rgb(235 216 218);
+    --sidebar-hover-bg: rgb(192 108 132 / 0.1);
+    --sidebar-muted-color: rgb(83 98 111);
+    --sidebar-active-color: rgb(48 62 75);
+    --sidebar-btn-bg: rgb(243 233 235);
+    --sidebar-btn-color: rgb(94 108 120);
+    --avatar-border-color: rgb(243 233 235);
+    --site-title-color: rgb(48 62 75);
+    --site-subtitle-color: rgb(94 108 120);
+    --text-color: rgb(33 41 48);
+    --text-muted-color: rgb(94 108 120);
+    --post-list-text-color: rgb(33 41 48);
+    --label-color: rgb(94 108 120);
+    --heading-color: rgb(48 62 75);
+    --link-color: rgb(103 89 115);
+    --link-underline-color: rgb(235 216 218);
+    --toc-highlight: rgb(48 62 75);
+    --blockquote-border-color: rgb(235 216 218);
+    --blockquote-text-color: rgb(94 108 120);
+    --button-bg: rgb(243 233 235);
+    --btn-border-color: rgb(235 216 218);
+    --menu-bg: rgb(243 233 235);
+    --menu-border-color: rgb(235 216 218);
+    --menu-active-color: rgb(164 81 105);
+    --menu-highlight-bg: rgb(192 108 132 / 0.12);
+    --checkbox-color: rgb(235 216 218);
+    --checkbox-checked-color: rgb(164 81 105);
+    --inline-code-bg: rgb(242 244 245);
+    --highlight-bg-color: rgb(242 244 245);
+    --highlighter-rouge-color: rgb(43 52 59);
+    --code-color: rgb(43 52 59);
+    --tag-border: rgb(235 216 218);
+    --tag-hover: rgb(103 89 115);
+    --btn-share-hover-color: rgb(161 120 131);
+
+  /* topbar blends into the page background */
+  #topbar-wrapper { background-color: rgb(249 244 244 / 0.7); }
+
+  /* categories cards match the home-page post cards; no outer border */
+  .categories { border-color: transparent; }
+  .categories .card-header { background-color: var(--card-bg); }
+
+  /* archives odd rows fade out at both edges (like dark mode) */
+  #archives li:nth-child(odd) {
+    background-image: linear-gradient(
+      to left,
+      rgb(249 244 244),
+      rgb(245 237 238),
+      rgb(245 237 238),
+      rgb(245 237 238),
+      rgb(249 244 244)
+    );
+  }
+
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-bs-theme]) {
+    --main-bg: rgb(249 244 244);
+    --mask-bg: rgb(235 216 218);
+    --main-border-color: rgb(235 216 218);
+    --card-bg: rgb(243 233 235);
+    --card-hover-bg: rgb(235 216 218);
+    --img-bg: radial-gradient(circle, rgb(253 252 252) 0%, rgb(241 228 230) 100%);
+    --topbar-bg: rgb(249 244 244 / 0.7);
+    --topbar-text-color: rgb(64 78 89);
+    --sidebar-bg: rgb(243 233 235);
+    --sidebar-border-color: rgb(235 216 218);
+    --sidebar-hover-bg: rgb(192 108 132 / 0.1);
+    --sidebar-muted-color: rgb(83 98 111);
+    --sidebar-active-color: rgb(48 62 75);
+    --sidebar-btn-bg: rgb(243 233 235);
+    --sidebar-btn-color: rgb(94 108 120);
+    --avatar-border-color: rgb(243 233 235);
+    --site-title-color: rgb(48 62 75);
+    --site-subtitle-color: rgb(94 108 120);
+    --text-color: rgb(33 41 48);
+    --text-muted-color: rgb(94 108 120);
+    --post-list-text-color: rgb(33 41 48);
+    --label-color: rgb(94 108 120);
+    --heading-color: rgb(48 62 75);
+    --link-color: rgb(103 89 115);
+    --link-underline-color: rgb(235 216 218);
+    --toc-highlight: rgb(48 62 75);
+    --blockquote-border-color: rgb(235 216 218);
+    --blockquote-text-color: rgb(94 108 120);
+    --button-bg: rgb(243 233 235);
+    --btn-border-color: rgb(235 216 218);
+    --menu-bg: rgb(243 233 235);
+    --menu-border-color: rgb(235 216 218);
+    --menu-active-color: rgb(164 81 105);
+    --menu-highlight-bg: rgb(192 108 132 / 0.12);
+    --checkbox-color: rgb(235 216 218);
+    --checkbox-checked-color: rgb(164 81 105);
+    --inline-code-bg: rgb(242 244 245);
+    --highlight-bg-color: rgb(242 244 245);
+    --highlighter-rouge-color: rgb(43 52 59);
+    --code-color: rgb(43 52 59);
+    --tag-border: rgb(235 216 218);
+    --tag-hover: rgb(103 89 115);
+    --btn-share-hover-color: rgb(161 120 131);
+
+  /* topbar blends into the page background */
+  #topbar-wrapper { background-color: rgb(249 244 244 / 0.7); }
+
+  /* categories cards match the home-page post cards; no outer border */
+  .categories { border-color: transparent; }
+  .categories .card-header { background-color: var(--card-bg); }
+
+  /* archives odd rows fade out at both edges (like dark mode) */
+  #archives li:nth-child(odd) {
+    background-image: linear-gradient(
+      to left,
+      rgb(249 244 244),
+      rgb(245 237 238),
+      rgb(245 237 238),
+      rgb(245 237 238),
+      rgb(249 244 244)
+    );
+  }
+
+  }
+}
+
+/* ---- dark ---- */
+:root[data-bs-theme='dark'] {
+    --main-bg: rgb(20 26 31);
+    --mask-bg: rgb(50 62 72);
+    --main-border-color: rgb(50 62 72);
+    --card-bg: rgb(32 40 48);
+    --card-hover-bg: rgb(50 62 72);
+    --card-header-bg: rgb(32 40 48);
+    --img-bg: radial-gradient(circle, rgb(24 31 37) 0%, rgb(32 42 50) 100%);
+    --topbar-bg: rgb(20 26 31 / 0.7);
+    --topbar-text-color: rgb(219 222 225);
+    --sidebar-bg: rgb(32 40 48);
+    --sidebar-border-color: rgb(50 62 72);
+    --sidebar-hover-bg: rgb(192 108 132 / 0.16);
+    --sidebar-muted-color: rgb(150 164 176);
+    --sidebar-active-color: rgb(233 235 237);
+    --sidebar-btn-bg: rgb(32 40 48);
+    --sidebar-btn-color: rgb(150 164 176);
+    --avatar-border-color: rgb(32 40 48);
+    --site-title-color: rgb(233 235 237);
+    --site-subtitle-color: rgb(150 164 176);
+    --text-color: rgb(219 222 225);
+    --text-muted-color: rgb(150 164 176);
+    --post-list-text-color: rgb(219 222 225);
+    --label-color: rgb(150 164 176);
+    --heading-color: rgb(233 235 237);
+    --link-color: rgb(174 164 183);
+    --link-underline-color: rgb(50 62 72);
+    --toc-highlight: rgb(191 125 144);
+    --blockquote-border-color: rgb(50 62 72);
+    --blockquote-text-color: rgb(150 164 176);
+    --button-bg: rgb(32 40 48);
+    --btn-border-color: rgb(50 62 72);
+    --menu-bg: rgb(32 40 48);
+    --menu-border-color: rgb(50 62 72);
+    --menu-active-color: rgb(191 125 144);
+    --menu-highlight-bg: rgb(192 108 132 / 0.18);
+    --checkbox-color: rgb(50 62 72);
+    --checkbox-checked-color: rgb(191 125 144);
+    --inline-code-bg: rgb(27 34 39);
+    --highlight-bg-color: rgb(27 34 39);
+    --highlighter-rouge-color: rgb(219 222 225);
+    --code-color: rgb(219 222 225);
+    --tag-border: rgb(50 62 72);
+    --tag-hover: rgb(174 164 183);
+
+  #topbar-wrapper { background-color: rgb(20 26 31 / 0.7); }
+
+  .categories { border-color: transparent; }
+
+  #archives li:nth-child(odd) {
+    background-image: linear-gradient(
+      to left,
+      rgb(20 26 31),
+      rgb(32 40 48),
+      rgb(32 40 48),
+      rgb(32 40 48),
+      rgb(20 26 31)
+    );
+  }
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme]) {
+    --main-bg: rgb(20 26 31);
+    --mask-bg: rgb(50 62 72);
+    --main-border-color: rgb(50 62 72);
+    --card-bg: rgb(32 40 48);
+    --card-hover-bg: rgb(50 62 72);
+    --card-header-bg: rgb(32 40 48);
+    --img-bg: radial-gradient(circle, rgb(24 31 37) 0%, rgb(32 42 50) 100%);
+    --topbar-bg: rgb(20 26 31 / 0.7);
+    --topbar-text-color: rgb(219 222 225);
+    --sidebar-bg: rgb(32 40 48);
+    --sidebar-border-color: rgb(50 62 72);
+    --sidebar-hover-bg: rgb(192 108 132 / 0.16);
+    --sidebar-muted-color: rgb(150 164 176);
+    --sidebar-active-color: rgb(233 235 237);
+    --sidebar-btn-bg: rgb(32 40 48);
+    --sidebar-btn-color: rgb(150 164 176);
+    --avatar-border-color: rgb(32 40 48);
+    --site-title-color: rgb(233 235 237);
+    --site-subtitle-color: rgb(150 164 176);
+    --text-color: rgb(219 222 225);
+    --text-muted-color: rgb(150 164 176);
+    --post-list-text-color: rgb(219 222 225);
+    --label-color: rgb(150 164 176);
+    --heading-color: rgb(233 235 237);
+    --link-color: rgb(174 164 183);
+    --link-underline-color: rgb(50 62 72);
+    --toc-highlight: rgb(191 125 144);
+    --blockquote-border-color: rgb(50 62 72);
+    --blockquote-text-color: rgb(150 164 176);
+    --button-bg: rgb(32 40 48);
+    --btn-border-color: rgb(50 62 72);
+    --menu-bg: rgb(32 40 48);
+    --menu-border-color: rgb(50 62 72);
+    --menu-active-color: rgb(191 125 144);
+    --menu-highlight-bg: rgb(192 108 132 / 0.18);
+    --checkbox-color: rgb(50 62 72);
+    --checkbox-checked-color: rgb(191 125 144);
+    --inline-code-bg: rgb(27 34 39);
+    --highlight-bg-color: rgb(27 34 39);
+    --highlighter-rouge-color: rgb(219 222 225);
+    --code-color: rgb(219 222 225);
+    --tag-border: rgb(50 62 72);
+    --tag-hover: rgb(174 164 183);
+
+  #topbar-wrapper { background-color: rgb(20 26 31 / 0.7); }
+
+  .categories { border-color: transparent; }
+
+  #archives li:nth-child(odd) {
+    background-image: linear-gradient(
+      to left,
+      rgb(20 26 31),
+      rgb(32 40 48),
+      rgb(32 40 48),
+      rgb(32 40 48),
+      rgb(20 26 31)
+    );
+  }
+
+  }
+}
