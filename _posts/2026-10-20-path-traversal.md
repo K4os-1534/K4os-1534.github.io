@@ -21,11 +21,11 @@ You can access the lab [here](https://portswigger.net/web-security/learning-path
 
 Ok so first thing we see after opening the website is a shop with various items listed. 
 
-![](/assets/img/path-traversal/path_traversal_1.png)
+![](/assets/img/path-traversal/path_traversal_1.webp)
 
 So the only clickable links are the "View details" buttons. After clicking the button we see that it does render the image on a new page. So we'll have to analyze the request itself to see what's happening behind the scenes. For our purpose we'll use Burpsuite.
 
-![](/assets/img/path-traversal/path_traversal_2.png)
+![](/assets/img/path-traversal/path_traversal_2.webp)
 
 As we can see, clicking the button sends a GET request for a file, let's try changing the file name. 
 I replaced the file name with `../../../etc/passwd`, so the request became:
@@ -34,15 +34,15 @@ I replaced the file name with `../../../etc/passwd`, so the request became:
 GET /image?filename=../../../etc/passwd
 ```
 
-![](/assets/img/path-traversal/path_traversal_3.png)
+![](/assets/img/path-traversal/path_traversal_3.webp)
 
 Let's forward the request.
 
-![](/assets/img/path-traversal/path_traversal_4.png)
+![](/assets/img/path-traversal/path_traversal_4.webp)
 
 On page, it says that the lab is solved successfully! However we would want to see the response we are getting right. So instead of just forwarding the request, we'll send it to Burp Repeater and from there we will modify and send different payloads.
 
-![](/assets/img/path-traversal/path_traversal_5.png)
+![](/assets/img/path-traversal/path_traversal_5.webp)
 
 And on Burp Repeater we do see the contents of the file we requested for.
 
