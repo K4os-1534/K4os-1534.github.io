@@ -15,8 +15,6 @@ The trick behind it is `../`, which means “go up one folder”. For example, i
 
 ## Lab Walkthrough: File path traversal
 
-This was done in a PortSwigger lab, which is built for practice. Never test on real websites without permission.
-
 You can access the lab [here](https://portswigger.net/web-security/learning-paths/server-side-vulnerabilities-apprentice/path-traversal-apprentice/file-path-traversal/lab-simple#)
 
 Ok so first thing we see after opening the website is a shop with various items listed. 
